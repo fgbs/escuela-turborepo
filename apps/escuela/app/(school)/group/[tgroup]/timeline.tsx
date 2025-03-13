@@ -17,7 +17,7 @@ export const TargetGroupTimeline = ({ tgroup }: { tgroup: string }) => {
       try {
         const { data, error } = await supabase
           .from('targets')
-          .select('id, title, sort_index')
+          .select('id, name, sort_index')
           .eq('target_group_id', id)
           .order('sort_index', { ascending: true })
 
@@ -70,7 +70,7 @@ export const TargetGroupTimeline = ({ tgroup }: { tgroup: string }) => {
                       <Link href={`/target/${target.id}`}>
                         <p className="text-sm text-gray-500">
                           Día {target.sort_index}:<br />
-                          <span className="font-medium text-gray-900">{target.title}</span>
+                          <span className="font-medium text-gray-900">{target.name}</span>
                         </p>
                       </Link>
                     </div>

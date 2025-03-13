@@ -4,13 +4,13 @@ import Markdown from 'react-markdown'
 // import { ContentEditor } from './content-editor'
 
 
-export const ContentRender = ({ content }) => {
+export const ContentRender = ({ content }: { content: string }) => {
   return(
     <>
       {/*<ContentEditor content={ content } />*/}
-      <Markdown className='prose min-w-full'>
-        { content }
-      </Markdown>
+      <article className='prose min-w-full'>
+        <Markdown children={ content } />
+      </article>
     </>
   )
 }

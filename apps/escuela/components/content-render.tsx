@@ -8,9 +8,7 @@ export const ContentRender = ({ content }) => {
   return(
     <>
       {/*<ContentEditor content={ content } />*/}
-      <Markdown className='prose min-w-full'>
-        { content }
-      </Markdown>
+      <Markdown children={ content } />
     </>
   )
 }

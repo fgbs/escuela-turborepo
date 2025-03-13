@@ -1,10 +1,17 @@
 import type { Config } from "tailwindcss";
+const colors = require('tailwindcss/colors')
 
 // We want each package to be responsible for its own content.
 const config: Omit<Config, "content"> = {
   darkMode: 'class',
   theme: {
     extend: {
+      colors: {
+        sky: colors.sky,
+        teal: colors.teal,
+        cyan: colors.cyan,
+        rose: colors.rose,
+      },
       keyframes: {
         hide: {
           from: { opacity: "1" },
@@ -81,6 +88,8 @@ const config: Omit<Config, "content"> = {
   plugins: [
     require("@tailwindcss/forms"),
     require('@tailwindcss/typography'),
+    require('@tailwindcss/aspect-ratio'),
   ],
 };
+
 export default config;
