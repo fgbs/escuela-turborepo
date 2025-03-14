@@ -1,10 +1,10 @@
 import { redirect } from "next/navigation";
 
 import { createClient } from "@repo/supabase/lib/server"
+import { BackButton } from "@repo/ui/components/back-button";
 import { ContentRender } from "@repo/ui/components/content-render";
 import { Sidebar } from "../../../../components/ui/sidebar";
 import { SessionParams } from "../../../../components/session-params";
-import { BackButton } from "@repo/ui/components/back-button";
 
 
 const getTargets = async (id: string) => {

@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { RiArrowRightLine } from "@remixicon/react"
+import { ArrowRightToLine } from "lucide-react"
 
 import { siteConfig } from "./siteConfig"
 
@@ -21,7 +21,7 @@ export default function NotFound() {
       </p>
       <Link href={siteConfig.baseLinks.home} className="group mt-8">
         Go to the home page
-        <RiArrowRightLine
+        <ArrowRightToLine
           className="ml-1.5 size-5 text-gray-900 dark:text-gray-50"
           aria-hidden="true"
         />
