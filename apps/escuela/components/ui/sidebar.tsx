@@ -114,7 +114,7 @@ export const Sidebar = ({
         </div>
 
         <div className="mt-6 h-0 flex-1 flex flex-col overflow-y-auto">
-          <ProfileDropdownDesktop />
+          {/*<ProfileDropdownDesktop />*/}
 
           {/* 
           <div className="px-3 mt-8">
@@ -187,8 +187,7 @@ export const Sidebar = ({
             </div>
 
             <div className="flex items-center">
-              {/* Profile dropdown */}
-              <ProfileDropdownMobile />
+              {/* <ProfileDropdownMobile /> */}
             </div>
           </div>
         </div>

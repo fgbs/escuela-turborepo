@@ -1,12 +1,11 @@
 import { redirect } from "next/navigation";
 
 import { createClient } from '@repo/supabase/lib/server'
-import { RecordingRender } from "./recording-render";
 import { BackButton } from "@repo/ui/components/back-button";
 import { Sidebar } from "../../../../../components/ui/sidebar";
 
 
-export default async function TargetRecordPage({ params }: { params: { targetid: string }}) {
+export default async function TargetRoomPage({ params }: { params: { targetid: string }}) {
   const supabase = await createClient()
   const targetid = (await params).targetid
 
@@ -46,7 +45,7 @@ export default async function TargetRecordPage({ params }: { params: { targetid:
         </div>
 
         <div className="container mx-auto px-4 pt-4 sm:px-6 sm:pt-6 lg:px-8 lg:pt-8">
-          <RecordingRender room={ data.id } name={ data.room_name } />
+          soon
         </div>
       </Sidebar>
     </>

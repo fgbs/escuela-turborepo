@@ -1,13 +1,13 @@
-import { CreditCardIcon, KeyIcon, UserCircleIcon, TrophyIcon } from '@heroicons/react/24/outline'
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'
 
 import { createClient } from '@repo/supabase/lib/server'
+import { BackButton } from '@repo/ui/components/back-button'
 import { cx } from "@repo/ui/utils/cx"
 import { AccountForm } from './account-form'
 import { ChangePassword } from './change-password'
 import { Achievement } from './achievement'
 import { Sidebar } from '../../components/ui/sidebar'
-import { BackButton } from '@repo/ui/components/back-button'
+
 
 export default async function Account() {
   const supabase = await createClient()
@@ -37,28 +37,23 @@ export default async function Account() {
         </div>
 
         <div className="container mx-auto px-4 pt-4 sm:px-6 sm:pt-6 lg:px-8 lg:pt-8">
-
-          {/* Tabs */}
-          <div className="lg:hidden">
-            <label htmlFor="selected-tab" className="sr-only">
-              Select a tab
-            </label>
-            <select
-              id="selected-tab"
-              name="selected-tab"
-              className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm rounded-md"
-              defaultValue={tabs.find((tab) => tab.current).name}
-            >
-              {tabs.map((tab) => (
-                <option key={tab.name}>{tab.name}</option>
-              ))}
-            </select>
-          </div>
-
           <TabGroup defaultIndex={0}>
+            <div className="lg:hidden">
+              <label htmlFor="selected-tab" className="sr-only">
+                Select a tab
+              </label>
+              <TabList as='select'
+                className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm rounded-md"
+              >
+                {tabs.map((tab) => (
+                  <Tab as='option' key={tab.name}>{tab.name}</Tab>
+                ))}
+              </TabList>
+            </div>
+
             <div className="hidden lg:block">
               <div className="border-b border-gray-200">
-                  <nav className="-mb-px flex space-x-8">
+                  <TabList as='nav' className="-mb-px flex space-x-8">
                     {tabs.map((tab) => (
                       <Tab
                         key={tab.name}
@@ -72,7 +67,7 @@ export default async function Account() {
                         {tab.name}
                       </Tab>
                     ))}
-                  </nav>
+                  </TabList>
               </div>
             </div>
 

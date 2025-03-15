@@ -48,7 +48,7 @@ export default async function SchoolPage() {
         </div>
 
         <div className="container mx-auto px-4 pt-4 sm:px-6 sm:pt-6 lg:px-8 lg:pt-8">
-          <div className="grid gap-5 lg:grid-cols-3 lg:max-w-none">
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:max-w-none">
             {
               data.map((course) => (
                 <div key={course.id} className="flex flex-col rounded-lg shadow-lg overflow-hidden">
@@ -67,7 +67,7 @@ export default async function SchoolPage() {
                     <div className="mt-6 flex items-center">
                       <Link 
                         href={`/course/${course.id}`} 
-                        className="mt-8 block w-full bg-gray-800 border border-gray-800 rounded-md py-2 text-sm font-semibold text-white text-center hover:bg-gray-900"
+                        className="mt-8 block w-full border border-transparent shadow-sm rounded-md py-2 text-sm font-semibold text-white text-center bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:order-1 sm:ml-3"
                       >
                         Entrar
                       </Link>

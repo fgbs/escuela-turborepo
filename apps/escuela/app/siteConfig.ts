@@ -22,7 +22,7 @@ export const siteConfig = {
   userNavigation: [
     { name: 'Ayuda', href: '/help', icon: CircleHelp, current: false },
     { name: 'Configuración', href: '/settings', icon: Settings, current: false },
-    { name: 'Salir', href: '/logout', icon: LogOut, current: false },
+    { name: 'Salir', href: '/auth/logout', icon: LogOut, current: false },
   ]
 }
 

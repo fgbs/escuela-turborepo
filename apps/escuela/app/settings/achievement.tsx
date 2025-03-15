@@ -40,8 +40,39 @@ export const Achievement = ({ user }: { user: User | null }) => {
         </p>
       </div>
 
-      <div className="mt-6">
-        <dl className="divide-y divide-gray-200">
+      <div className="mt-6 overflow-x-auto">
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead className="bg-gray-50">
+            <tr>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
+                Fecha
+              </th>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
+                Nombre
+              </th>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
+                Estado
+              </th>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
+              </th>
+              <th scope="col" className="relative px-6 py-3">
+                <span className="sr-only">Edit</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-200">
           {
             achievements.length > 0 ? (
               achievements.map((a) => (
@@ -72,7 +103,8 @@ export const Achievement = ({ user }: { user: User | null }) => {
               </tr>
             )
           }
-        </dl>
+          </tbody>
+        </table>
       </div>
     </>
   )
