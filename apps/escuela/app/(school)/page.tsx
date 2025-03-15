@@ -48,7 +48,7 @@ export default async function SchoolPage() {
         </div>
 
         <div className="container mx-auto px-4 pt-4 sm:px-6 sm:pt-6 lg:px-8 lg:pt-8">
-          <div className="grid gap-5 lg:grid-cols-2 lg:max-w-none">
+          <div className="grid gap-5 lg:grid-cols-3 lg:max-w-none">
             {
               data.map((course) => (
                 <div key={course.id} className="flex flex-col rounded-lg shadow-lg overflow-hidden">
