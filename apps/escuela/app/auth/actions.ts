@@ -72,15 +72,17 @@ export const signInAction = async (formData: FormData) => {
     return encodedRedirect("error", "/auth/login", error.message);
   }
 
-  return redirect("/school");
+  return redirect("/");
 };
 
 
 export const setPassword = async (formData: FormData) => {
   const supabase = await createClient()
-
-  const email = formData.get("email")?.toString();
   const password = formData.get('password') as string
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   const { error } = await supabase.auth.updateUser({
     password,
@@ -100,19 +102,18 @@ export const forgotPasswordAction = async (formData: FormData) => {
   const callbackUrl = formData.get("callbackUrl")?.toString();
 
   if (!email) {
-    return encodedRedirect("error", "/reset-password", "Email is required");
+    return encodedRedirect("error", "/auth/forgot-password", "Email es obligatorio");
   }
 
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: `${origin}/auth/callback?redirect_to=/protected/reset-password`,
+    redirectTo: `${origin}/auth/callback?next=/auth/set-password`,
   });
 
   if (error) {
-    console.error(error.message);
     return encodedRedirect(
       "error",
-      "/forgot-password",
-      "Could not reset password",
+      "/auth/forgot-password",
+      "No se pudo resetear la contraseña.",
     );
   }
 
@@ -122,8 +123,8 @@ export const forgotPasswordAction = async (formData: FormData) => {
 
   return encodedRedirect(
     "success",
-    "/forgot-password",
-    "Check your email for a link to reset your password.",
+    "/auth/forgot-password",
+    "Revisa tu correo por un link para resetear tu contraseña.",
   );
 };
 
