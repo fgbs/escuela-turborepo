@@ -1,8 +1,21 @@
-import { Sidebar } from '../../components/ui/sidebar'
+import { redirect } from "next/navigation";
+
+import { createClient } from "@repo/supabase/lib/server";
 import { BackButton } from '@repo/ui/components/back-button'
+import { Sidebar } from '../../../components/ui/sidebar'
 
 
 export default async function LibraryPage() {
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return redirect("/auth/login");
+  }
+  
   return(
     <>
       <Sidebar menu={ null }>

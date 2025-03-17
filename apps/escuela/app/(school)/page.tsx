@@ -67,7 +67,7 @@ export default async function SchoolPage() {
                     <div className="mt-6 flex items-center">
                       <Link 
                         href={`/course/${course.id}`} 
-                        className="mt-8 block w-full border border-transparent shadow-sm rounded-md py-2 text-sm font-semibold text-white text-center bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:order-1 sm:ml-3"
+                        className="mt-8 block w-full border border-transparent shadow-sm rounded-md py-2 text-sm font-semibold text-white text-center bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
                       >
                         Entrar
                       </Link>
