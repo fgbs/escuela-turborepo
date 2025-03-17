@@ -64,6 +64,14 @@ export const signInWithMagicLinkAction = async (formData: FormData) => {
   const origin = (await headers()).get("origin");
   const supabase = await createClient();
 
+  if (!email) {
+    return encodedRedirect(
+      "error",
+      "/auth/magiclink",
+      "Email es obligatorio",
+    );
+  }
+
   const { error } = await supabase.auth.signInWithOtp({
     email: email,
     options: {
