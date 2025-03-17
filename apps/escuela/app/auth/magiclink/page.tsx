@@ -1,10 +1,12 @@
-import Link from "next/link"
 
-import { forgotPasswordAction } from "../actions"
+import { FormMessage, Message } from "../../../components/form-message";
 import { SubmitButton } from "@repo/ui/components/submit-button"
+import { signInWithMagicLinkAction } from "../actions"
 
 
-export default async function MagicLink() {
+export default async function MagicLink(props: { searchParams: Promise<Message> }) {
+  const searchParams = await props.searchParams;
+
   return(
     <>
       <div className="mx-auto w-full max-w-sm lg:w-96">
@@ -38,9 +40,11 @@ export default async function MagicLink() {
               </div>
 
               <div>
-                <SubmitButton pendingText="Enviando..." formAction={forgotPasswordAction} className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
+                <SubmitButton pendingText="Enviando..." formAction={signInWithMagicLinkAction} className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
                   Enviar link Mágico
                 </SubmitButton>
+
+                <FormMessage message={searchParams} />
               </div>
             </form>
           </div>

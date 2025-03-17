@@ -12,7 +12,6 @@ const config: Pick<Config, "content" | "presets" | "plugins"> = {
   plugins: [
     require("@tailwindcss/forms"),
     require('@tailwindcss/typography'),
-    require('@tailwindcss/aspect-ratio'),
   ],
 };
 
