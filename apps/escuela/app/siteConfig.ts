@@ -1,4 +1,4 @@
-import { Library, Video, Home } from "lucide-react"
+import { Library, Video, Home, CircleHelp, LogOut, Settings } from "lucide-react"
 
 export const siteConfig = {
   name: "Escuela TVP",
@@ -20,10 +20,9 @@ export const siteConfig = {
     { name: 'Grabaciones', href: '/recording', icon: Video, current: false },
   ],
   userNavigation: [
-    { name: 'Perfil', href: '#', current: true },
-    { name: 'Configuración', href: '#', current: true },
-    { name: 'Notificaciones', href: '#', current: true },
-    { name: 'Salir', href: '#', current: true },
+    { name: 'Ayuda', href: '/help', icon: CircleHelp, current: false },
+    { name: 'Configuración', href: '/settings', icon: Settings, current: false },
+    { name: 'Salir', href: '/auth/logout', icon: LogOut, current: false },
   ]
 }
 

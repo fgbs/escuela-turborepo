@@ -1,12 +1,11 @@
 'use client'
 import { useState } from 'react'
 import { Dialog } from '@headlessui/react'
-import { MenuIcon, X } from "lucide-react"
+import { CircleHelp, LogOut, MenuIcon, Settings, X } from "lucide-react"
 
 import { cx } from "@repo/ui/utils/cx"
 import { siteConfig } from '../../app/siteConfig'
 import { ProfileDropdownDesktop, ProfileDropdownMobile } from './profile-dropdown'
-import { SearchbarDesktop, SearchbarMobile } from './searchbar'
 import { BulletListDesktop, BulletListMobile, iSteps } from './bullet-list'
 
 interface iSidebarMenu {
@@ -49,7 +48,7 @@ export const Sidebar = ({
           </div>
 
           <div className="mt-5 flex-1 h-0 overflow-y-auto">
-            <nav className="px-2">
+            <nav className="h-full flex flex-col">
               <div className="space-y-1">
                 {siteConfig.navigation.map((item) => (
                   <a
@@ -74,11 +73,29 @@ export const Sidebar = ({
                   </a>
                 ))}
               </div>
+
               <div className="mt-8">
                 {
                   menu && <BulletListMobile name={ menu.name } path={ menu.path } steps={ menu.steps } />
                 }
               </div>
+
+              <div className="mt-auto pt-10 space-y-1">
+                {siteConfig.userNavigation.map((item) => (
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    className="group border-l-4 border-transparent py-2 px-3 flex items-center text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+                  >
+                    <item.icon
+                      className="mr-4 h-6 w-6 text-gray-400 group-hover:text-gray-500"
+                      aria-hidden="true"
+                    />
+                    {item.name}
+                  </a>
+                ))}
+              </div>
+
             </nav>
           </div>
         </div>
@@ -97,7 +114,7 @@ export const Sidebar = ({
         </div>
 
         <div className="mt-6 h-0 flex-1 flex flex-col overflow-y-auto">
-          <ProfileDropdownDesktop />
+          {/*<ProfileDropdownDesktop />*/}
 
           {/* 
           <div className="px-3 mt-8">
@@ -105,7 +122,7 @@ export const Sidebar = ({
           </div>
           */}
 
-          <nav className="px-3 mt-6">
+          <nav className="px-3 mt-6 flex-grow">
             <div className="space-y-1">
               {siteConfig.navigation.map((item) => (
                 <a
@@ -135,6 +152,20 @@ export const Sidebar = ({
               }
             </div>
           </nav>
+
+          <div className="flex-shrink-0 block px-3 mt-6">
+            {siteConfig.userNavigation.map((item) => (
+              <a
+                key={item.name}
+                href={item.href}
+                className="group border-l-4 border-transparent py-2 px-3 flex items-center text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+              >
+                <item.icon className="text-gray-400 group-hover:text-gray-500 mr-3 h-6 w-6" aria-hidden="true" />
+                {item.name}
+              </a>
+            ))}
+          </div>
+
         </div>
       </div>
 
@@ -156,8 +187,7 @@ export const Sidebar = ({
             </div>
 
             <div className="flex items-center">
-              {/* Profile dropdown */}
-              <ProfileDropdownMobile />
+              {/* <ProfileDropdownMobile /> */}
             </div>
           </div>
         </div>

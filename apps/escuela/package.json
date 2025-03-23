@@ -19,6 +19,8 @@
     "@remixicon/react": "^4.3.0",
     "@repo/supabase": "*",
     "@repo/ui": "*",
+    "@supabase/ssr": "^0.6.1",
+    "@supabase/supabase-js": "^2.49.1",
     "@vidstack/react": "^1.12.12",
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",

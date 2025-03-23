@@ -154,7 +154,7 @@ export const ProfileDropdownDesktop = () => {
                 <Avatar image={avatarUrl} size={10} alt={ profile && profile.full_name } />
                 <span className="flex-1 flex flex-col min-w-0">
                   <span className="text-gray-900 text-sm font-medium truncate">{ profile && profile.full_name }</span>
-                  <span className="text-gray-500 text-sm truncate">@jessyschwarz</span>
+                  {/*<span className="text-gray-500 text-sm truncate">{ profile && profile.email }</span>*/}
                 </span>
               </span>
               <ChevronsUpDown

@@ -11,10 +11,11 @@ import { defaultLayoutIcons, DefaultVideoLayout } from '@vidstack/react/player/l
 import { useCourseStore } from '@repo/supabase/providers/course-provider'
 import { createClient } from '@repo/supabase/lib/client'
 // import { VideoPlayer } from './video-player'
+import { siteConfig } from '../../../siteConfig';
 
 
 // STORAGE_URL / course_id / level_id / [room_id] / [recording_id] / filename
-const STORAGE_URL = 'https://fgbs.nyc3.cdn.digitaloceanspaces.com/directus-tvp/recordings'
+//const STORAGE_URL = 'https://fgbs.nyc3.cdn.digitaloceanspaces.com/directus-tvp/recordings'
 //const STORAGE_URL = 'https://cdn.cloud.fgbs.io/directus-tvp/recordings'
 
 const useCourse = () => {
@@ -49,7 +50,7 @@ export function RecordingRender({ room, name }: { room: string, name: string }) 
         // console.log('url', course, level, room, data.filename)
 
         const tmp = {
-          src: `${STORAGE_URL}/${course}/${level}/${room}/${data.filename}`,
+          src: `${siteConfig.storage.record}/${course}/${level}/${room}/${data.filename}`,
           type: `${data.content_type}`,
         }
         setRecording(tmp)

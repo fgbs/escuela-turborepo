@@ -1,6 +1,6 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import { createClient } from '@/lib/supabase/client'
+import { createClient } from '@repo/supabase/lib/client'
 import Image from 'next/image'
 
 export default function AccountAvatar({
