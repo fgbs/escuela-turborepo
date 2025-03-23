@@ -68,7 +68,7 @@ export const ChangePassword = ({ user }: { user: User | null }) => {
               <span className="flex-grow"></span>
               <span className="ml-4 flex-shrink-0">
                 <button
-                  className="bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  className="order-0 inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:order-1 sm:ml-3"
                   onClick={() => updatePassword()}
                   disabled={loading}
                 >
