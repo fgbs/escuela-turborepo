@@ -27,10 +27,6 @@ export const SessionParams = ({ id }: { id: string }) => {
   const pathname = usePathname()
 
 
-  if (pathname.startsWith("/course")) {
-    setCourse(id)
-  }
-
   useEffect(() => {
     const getLevel = async (id: string) => {
       const supabase = await createClient();
@@ -52,14 +48,18 @@ export const SessionParams = ({ id }: { id: string }) => {
       }
     }
 
-    if (pathname.startsWith("/group") && id)
+    if (pathname.startsWith("/group") && id) {
       getLevel(id)
+    }
+
+    if (pathname.startsWith("/course")) {
+      setCourse(id)
+    }
+  
+    if (pathname.startsWith("/target")) {
+      setTarget(id)
+    }
   }, [id])
-
-  if (pathname.startsWith("/target")) {
-    setTarget(id)
-  }
-
 
   return(
     <>

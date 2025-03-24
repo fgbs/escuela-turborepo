@@ -36,6 +36,7 @@ export const createCourseStore = (
     {
       name: 'tvp-data',
       storage: createJSONStorage(() => localStorage),
+      skipHydration: true,
     })
   )
 }
