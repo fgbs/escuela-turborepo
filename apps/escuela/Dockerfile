@@ -31,7 +31,7 @@ RUN yarn install
 
 # Build the project
 COPY --from=builder /app/out/full/ .
-COPY turbo.json turbo.json
+COPY --from=builder /app/turbo.json .
 RUN yarn turbo build --filter=escuela...
 
 FROM base AS runner
