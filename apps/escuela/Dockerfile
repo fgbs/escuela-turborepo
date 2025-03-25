@@ -15,7 +15,7 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 RUN yarn global add turbo
 COPY . .
-RUN turbo prune escuela --docker
+RUN yarn turbo prune escuela --docker
 
 # Add lockfile and package.json's of isolated subworkspace
 FROM base AS installer
