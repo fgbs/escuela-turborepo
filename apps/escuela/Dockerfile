@@ -15,6 +15,9 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 RUN yarn global add turbo
 COPY . .
+
+# Generate a partial monorepo with a pruned lockfile for a target workspace.
+# Assuming "web" is the name entered in the project's package.json: { name: "web" }
 RUN turbo prune escuela --docker
 
 # Add lockfile and package.json's of isolated subworkspace
@@ -25,12 +28,11 @@ WORKDIR /app
 
 # First install the dependencies (as they change less often)
 COPY --from=builder /app/out/json/ .
-COPY --from=builder /app/out/yarn.lock ./yarn.lock
-RUN yarn install
+RUN yarn install --frozen-lockfile
 
 # Build the project
 COPY --from=builder /app/out/full/ .
-RUN yarn turbo build
+RUN yarn turbo run build
 
 FROM base AS runner
 WORKDIR /app
