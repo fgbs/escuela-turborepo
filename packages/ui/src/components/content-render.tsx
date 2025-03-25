@@ -8,7 +8,7 @@ export const ContentRender = ({ content }: { content: string }) => {
   return(
     <>
       {/*<ContentEditor content={ content } />*/}
-      <article className='prose min-w-full'>
+      <article className='ui-prose min-w-full'>
         <Markdown children={ content } />
       </article>
     </>

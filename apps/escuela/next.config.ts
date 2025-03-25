@@ -18,7 +18,6 @@ const nextConfig: NextConfig = {
   transpilePackages: [
     "@repo/ui",
     "@repo/supabase",
-    "@repo/tailwind-config",
   ],
   typescript: {
     ignoreBuildErrors: true,

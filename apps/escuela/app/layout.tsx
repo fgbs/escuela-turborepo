@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+
 import "./globals.css";
+import "@repo/ui/styles.css"
 
 import ThemeProvider from '@repo/ui/providers/theme-provider'
 import { CourseStoreProvider } from '@repo/supabase/providers/course-provider'
