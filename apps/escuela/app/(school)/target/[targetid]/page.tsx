@@ -7,9 +7,30 @@ import { BackButton } from "@repo/ui/components/back-button";
 import { Sidebar } from "../../../../components/ui/sidebar";
 
 
+const getTargets = async (id: string) => {
+  const supabase = await createClient();
+
+  try {
+    const { data, error } = await supabase
+      .from('targets')
+      .select('id, name, visibility, sort_index')
+      .eq('target_group_id', id)
+      .order('sort_index', { ascending: true })
+
+    if (error) {
+      throw error
+    }
+
+    return data
+  } catch (error) {
+    console.log('Error downloading image: ', error)
+  }
+}
+
 export default async function TargetPage({ params }: { params: { targetid: string }}) {
   const supabase = await createClient()
   const targetid = (await params).targetid
+  let menu = null
 
   const {
     data: { user },
@@ -21,17 +42,24 @@ export default async function TargetPage({ params }: { params: { targetid: strin
 
   const { data, error } = await supabase
     .from('targets')
-    .select('id, name, description, content, sort_index, rooms(id)')
+    .select('id, name, description, content, sort_index, rooms(id), target_group_id')
     .eq('id', targetid)
     .single()
 
-  if (error) {
-    throw error
+  if (error) throw error
+
+  if (data) {
+    const levels = await getTargets(data.target_group_id)
+    menu = {
+      name: "Objetivos",
+      path: '/target',
+      steps: levels
+    }
   }
 
   return (
     <>
-      <Sidebar menu={null}>
+      <Sidebar menu={menu}>
         <div className="border-b border-gray-200 px-4 py-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8">
           <div className="flex-1 min-w-0">
             <h1 className="text-lg font-medium leading-6 text-gray-900 sm:truncate">

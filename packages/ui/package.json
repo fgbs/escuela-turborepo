@@ -8,12 +8,15 @@
     "dist"
   ],
   "exports": {
+    "./styles.css": "./dist/index.css",
     "./components/*": "./src/components/*.tsx",
     "./providers/*": "./src/providers/*.tsx",
     "./utils/*": "./src/utils/*.ts"
   },
   "license": "MIT",
   "scripts": {
+    "build": "tailwindcss -i ./src/styles.css -o ./dist/index.css",
+    "dev": "tailwindcss -i ./src/styles.css -o ./dist/index.css --watch",
     "check-types": "tsc --noEmit",
     "lint": "eslint src --max-warnings 0"
   },
@@ -31,9 +34,9 @@
     "videojs-youtube": "^3.0.1"
   },
   "devDependencies": {
-    "@repo/eslint-config": "*",
-    "@repo/tailwind-config": "*",
-    "@repo/typescript-config": "*",
+    "@repo/eslint-config": "workspace:*",
+    "@repo/tailwind-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
     "@tailwindcss/typography": "^0.5.16",
     "@types/react": "^19.0.10",
     "autoprefixer": "^10.4.20",
