@@ -3,8 +3,8 @@ import Link from 'next/link'
 import { createClient } from '@repo/supabase/lib/server'
 import { BackButton } from '@repo/ui/components/back-button'
 import { cx } from "@repo/ui/utils/cx"
-import { AccountForm } from './account-form'
-import { Sidebar } from '../../components/ui/sidebar'
+import { ChangePassword } from './change-password'
+import { Sidebar } from '../../../components/ui/sidebar'
 
 
 export default async function Account() {
@@ -15,8 +15,8 @@ export default async function Account() {
   } = await supabase.auth.getUser()
 
   const tabs = [
-    { name: 'General', href: '/settings', current: true },
-    { name: 'Contraseña', href: '/settings/password', current: false },
+    { name: 'General', href: '/settings', current: false },
+    { name: 'Contraseña', href: '/settings/password', current: true },
     { name: 'Certificados', href: '/settings/achievement', current: false },
   ]
   
@@ -73,7 +73,7 @@ export default async function Account() {
           </div>
 
           <div className="mt-10 divide-y divide-gray-200">
-            <AccountForm user={user} />
+            <ChangePassword user={user} />
           </div>
         </div>
       </Sidebar>

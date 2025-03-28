@@ -3,10 +3,10 @@ import { redirect } from "next/navigation";
 
 import { createClient } from "@repo/supabase/lib/server"
 import { ContentRender } from "@repo/ui/components/content-render"
+import { BackButton } from "@repo/ui/components/back-button";
 import { Sidebar } from "../../../../components/ui/sidebar";
 import { SessionParams } from "../../../../components/session-params"
 import { siteConfig } from "../../../siteConfig";
-import { BackButton } from "@repo/ui/components/back-button";
 
 
 const getLevels = async (id: string) => {
@@ -68,7 +68,7 @@ export default async function CoursePage({ params }: { params: { courseid: strin
       <SessionParams id={ courseid } />
 
       <Sidebar menu={ menu }>
-        <div className="border-b border-gray-200 px-4 py-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8">
+        <div className="bg-white border-b border-gray-200 px-4 py-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8">
           <div className="flex-1 min-w-0">
             <h1 className="text-lg font-medium leading-6 text-gray-900 sm:truncate">
               { data && data.name }
@@ -101,7 +101,11 @@ export default async function CoursePage({ params }: { params: { courseid: strin
         */}
 
         <div className="container mx-auto px-4 pt-4 sm:px-6 sm:pt-6 lg:px-8 lg:pt-8">
-          <ContentRender content={ data.about } />
+          <div className="bg-white shadow overflow-hidden sm:rounded-lg">
+            <div className="px-4 py-5 sm:px-6">
+              <ContentRender content={ data.about } />
+            </div>
+          </div>
         </div>
       </Sidebar>
     </>

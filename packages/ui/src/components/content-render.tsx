@@ -1,15 +1,17 @@
 'use client'
 
-import Markdown from 'react-markdown'
-// import { ContentEditor } from './content-editor'
+import { Remark } from 'react-remark';
 
 
 export const ContentRender = ({ content }: { content: string }) => {
   return(
     <>
-      {/*<ContentEditor content={ content } />*/}
       <article className='ui-prose min-w-full'>
-        <Markdown children={ content } />
+        <Remark
+//          remarkPlugins={[remarkEmbedder]}
+        >
+          { content }
+        </Remark>
       </article>
     </>
   )

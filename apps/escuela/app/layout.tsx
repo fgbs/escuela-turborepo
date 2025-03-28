@@ -43,7 +43,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.className} h-full bg-white`} suppressHydrationWarning>
+    <html lang="en" className={`${inter.className} h-full bg-gray-100`} suppressHydrationWarning>
       <body className="h-full antialiased">
         <ThemeProvider defaultTheme="light" enableSystem={true} attribute="class">
           <ProfileStoreProvider>

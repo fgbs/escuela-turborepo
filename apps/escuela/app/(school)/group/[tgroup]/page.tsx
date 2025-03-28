@@ -59,7 +59,7 @@ export default async function TargetGroupPage({ params }: { params: { tgroup: st
       <SessionParams id={ tgroupid } />
 
       <Sidebar menu={ menu }>
-        <div className="border-b border-gray-200 px-4 py-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8">
+        <div className="bg-white border-b border-gray-200 px-4 py-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8">
           <div className="flex-1 min-w-0">
             <h1 className="text-lg font-medium leading-6 text-gray-900 sm:truncate">
               { data && data.name }
@@ -74,7 +74,11 @@ export default async function TargetGroupPage({ params }: { params: { tgroup: st
         </div>
 
         <div className="container mx-auto px-4 pt-4 sm:px-6 sm:pt-6 lg:px-8 lg:pt-8">
-          <ContentRender content={ data.description } />
+          <div className="bg-white shadow overflow-hidden sm:rounded-lg">
+            <div className="px-4 py-5 sm:px-6">
+              <ContentRender content={ data.description } />
+            </div>
+          </div>
         </div>
       </Sidebar>
     </>

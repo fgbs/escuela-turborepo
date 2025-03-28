@@ -87,7 +87,7 @@ export const AccountForm = ({ user }: { user: User | null }) => {
 
       <div className="mt-6">
         <dl className="divide-y divide-gray-200">
-          <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
+          <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-b sm:border-gray-200">
             <dt className="text-sm font-medium text-gray-500">
               Nombre
             </dt>
@@ -97,16 +97,15 @@ export const AccountForm = ({ user }: { user: User | null }) => {
                   type="text"
                   id="fullName"
                   autoComplete="username"
-                  className="focus:ring-indigo-500 focus:border-indigo-500 flex-grow block w-full min-w-0 rounded-none rounded-r-md sm:text-sm border-gray-300"
+                  className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
                   value={fullname || ''}
                   onChange={(e) => setFullname(e.target.value)}
                 />
-
               </span>
             </dd>
           </div>
 
-          <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:pt-5">
+          <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-b sm:border-gray-200">
             <dt className="text-sm font-medium text-gray-500">
               Email
             </dt>
@@ -115,7 +114,7 @@ export const AccountForm = ({ user }: { user: User | null }) => {
                 <input 
                   id="email" 
                   type="text" 
-                  className="focus:ring-indigo-500 focus:border-indigo-500 flex-grow block w-full min-w-0 rounded-none rounded-r-md sm:text-sm border-gray-300"
+                  className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
                   value={user?.email} 
                   disabled 
                 />
