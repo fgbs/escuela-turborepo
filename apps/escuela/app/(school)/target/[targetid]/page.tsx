@@ -1,23 +1,18 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-
-import rehypeStringify from "rehype-stringify";
-import remarkParse from "remark-parse";
-import remarkRehype from "remark-rehype";
-import { unified } from "unified";
-
-import remarkEmbedder, {TransformerInfo} from '@remark-embedder/core'
-import oembedTransformer from '@remark-embedder/transformer-oembed'
-import rehypeRaw from 'rehype-raw'
+import { Paperclip } from "lucide-react";
 
 import { createClient } from '@repo/supabase/lib/server'
 import { BackButton } from "@repo/ui/components/back-button";
 import { Sidebar } from "../../../../components/ui/sidebar";
-import { Paperclip } from "lucide-react";
+import { ContentRender } from "@repo/ui/components/content-render";
+import { siteConfig } from "../../../siteConfig";
 
 
-const getTargets = async (id: string) => {
+const getTargets = async (id: string | null) => {
   const supabase = await createClient();
+
+  if(!id) return []
 
   try {
     const { data, error } = await supabase
@@ -33,6 +28,29 @@ const getTargets = async (id: string) => {
     return data
   } catch (error) {
     console.log('Error downloading image: ', error)
+    return []
+  }
+}
+
+const getDocuments = async (id: string | null) => {
+  const supabase = await createClient();
+
+  if(!id) return []
+
+  try {
+    const { data, error } = await supabase
+      .from('bibliographies')
+      .select('id, course_id, name, filename, content_type, size')
+      .eq('target_id', id)
+
+    if (error) {
+      throw error
+    }
+
+    return data
+  } catch (error) {
+    console.log('Error downloading image: ', error)
+    return []
   }
 }
 
@@ -40,6 +58,7 @@ export default async function TargetPage({ params }: { params: { targetid: strin
   const supabase = await createClient()
   const targetid = (await params).targetid
   let menu = null
+  let documents = []
 
   const {
     data: { user },
@@ -64,49 +83,9 @@ export default async function TargetPage({ params }: { params: { targetid: strin
       path: '/target',
       steps: levels
     }
+
+    documents = await getDocuments(targetid)
   }
-
-  const GoogleDocsTransformer = {
-    name: 'GoogleDocs',
-    shouldTransform(url) {
-      const {host, pathname} = new URL(url)
-  
-      return (
-        ['docs.google.com'].includes(host) &&
-        pathname.includes('/presentation/')
-      )
-    },
-    // getHTML can also be async
-    getHTML(url) {
-      const iframeUrl = url.replace('/pub/', '/embed/')
-  
-      return `<iframe src="${iframeUrl}" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden" referrerpolicy="strict-origin-when-cross-origin"  sandbox="allow-presentation allow-same-origin allow-scripts" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>`
-    },
-  }
-
-  const handleHTML = (html: string, info: TransformerInfo) => {
-    const {url, transformer} = info
-
-    console.log(html)
-
-    if (
-      transformer.name === '@remark-embedder/transformer-oembed' ||
-      url.includes('youtube.com')
-    ) {
-      return `<div class="embed-youtube aspect-w-16 aspect-h-9">${html}</div>`
-    }
-    return html
-  }
-
-  const content = await unified()
-    .use(remarkParse)
-    .use(remarkEmbedder, {
-      transformers: [oembedTransformer, GoogleDocsTransformer],
-    })
-    .use(remarkRehype, {allowDangerousHtml: true})
-    .use(rehypeRaw) // *Parse* the raw HTML strings embedded in the tree
-    .use(rehypeStringify)
-    .process(data.content)
   
   return (
     <>
@@ -145,8 +124,7 @@ export default async function TargetPage({ params }: { params: { targetid: strin
         <div className="container mx-auto px-4 pt-4 pb-4 sm:px-6 sm:pt-6 sm:pb-6 lg:px-8 lg:pt-8 lg:pb-8">
           <div className="bg-white shadow overflow-hidden sm:rounded-lg">
             <div className="px-4 py-5 sm:px-6">
-              <article className='ui-prose min-w-full' dangerouslySetInnerHTML={{__html: content.toString() }} />
-              {/* <ContentRender content={ data.content } /> */}
+              <ContentRender content={ data.content } />
             </div>
 
             <div className="border-t border-gray-200 px-4 py-5 sm:px-6">
@@ -157,28 +135,28 @@ export default async function TargetPage({ params }: { params: { targetid: strin
                   </dt>
                   <dd className="mt-1 text-sm text-gray-900">
                     <ul role="list" className="border border-gray-200 rounded-md divide-y divide-gray-200">
-                      <li className="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
-                        <div className="w-0 flex-1 flex items-center">
-                          <Paperclip className="flex-shrink-0 h-5 w-5 text-gray-400" aria-hidden="true" />
-                          <span className="ml-2 flex-1 w-0 truncate">resume_back_end_developer.pdf</span>
-                        </div>
-                        <div className="ml-4 flex-shrink-0">
-                          <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
-                            Download
-                          </a>
-                        </div>
-                      </li>
-                      <li className="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
-                        <div className="w-0 flex-1 flex items-center">
-                          <Paperclip className="flex-shrink-0 h-5 w-5 text-gray-400" aria-hidden="true" />
-                          <span className="ml-2 flex-1 w-0 truncate">coverletter_back_end_developer.pdf</span>
-                        </div>
-                        <div className="ml-4 flex-shrink-0">
-                          <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
-                            Download
-                          </a>
-                        </div>
-                      </li>
+                      {
+                        documents.map((doc) => (
+                          <li key={doc.id} className="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
+                            <div className="w-0 flex-1 flex items-center">
+                              <Paperclip className="flex-shrink-0 h-5 w-5 text-gray-400" aria-hidden="true" />
+                              <span className="ml-2 flex-1 w-0 truncate">{ doc.filename }</span>
+                            </div>
+                            <div className="ml-4 flex-shrink-0">
+                              <Link 
+                                href={`${siteConfig.storage.media}/${doc.course_id}/${targetid}/${doc.id}.pdf`} 
+                                locale={false}
+                                rel="noopener noreferrer"
+                                target="_blank"
+                                aria-label="Downlod"
+                                className="font-medium text-indigo-600 hover:text-indigo-500"
+                              >
+                                Descargar
+                              </Link>
+                            </div>
+                          </li>  
+                        ))
+                      }
                     </ul>
                   </dd>
                 </div>
