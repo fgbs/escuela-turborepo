@@ -93,14 +93,7 @@ export default async function CoursePage({ params }: { params: { courseid: strin
           />
         </div>
 
-        {/* 
-        <div className="px-4 mt-6 sm:px-6 lg:px-8">
-          <h2 className="text-gray-500 text-xs font-medium uppercase tracking-wide">Módulos</h2>
-          <CourseTimeline course={ courseid } />
-        </div>
-        */}
-
-        <div className="container mx-auto px-4 pt-4 sm:px-6 sm:pt-6 lg:px-8 lg:pt-8">
+        <div className="container mx-auto px-4 pt-4 pb-4 sm:px-6 sm:pt-6 sm:pb-6 lg:px-8 lg:pt-8 lg:pb-8">
           <div className="bg-white shadow overflow-hidden sm:rounded-lg">
             <div className="px-4 py-5 sm:px-6">
               <ContentRender content={ data.about } />

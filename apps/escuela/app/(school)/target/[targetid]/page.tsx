@@ -2,57 +2,16 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Paperclip } from "lucide-react";
 
-import { createClient } from '@repo/supabase/lib/server'
+import { createClient } from "@repo/supabase/lib/server";
+import { getTargetsByTargetGroupId } from '@repo/supabase/models/targets'
+import { getDocumentsByTargetId } from '@repo/supabase/models/bibliographies'
 import { BackButton } from "@repo/ui/components/back-button";
-import { Sidebar } from "../../../../components/ui/sidebar";
 import { ContentRender } from "@repo/ui/components/content-render";
 import { siteConfig } from "../../../siteConfig";
+import { Sidebar } from "../../../../components/ui/sidebar";
+import { RoomButton } from "../../../../components/room-button";
+import { RecordButton } from "../../../../components/record-button";
 
-
-const getTargets = async (id: string | null) => {
-  const supabase = await createClient();
-
-  if(!id) return []
-
-  try {
-    const { data, error } = await supabase
-      .from('targets')
-      .select('id, name, visibility, sort_index')
-      .eq('target_group_id', id)
-      .order('sort_index', { ascending: true })
-
-    if (error) {
-      throw error
-    }
-
-    return data
-  } catch (error) {
-    console.log('Error downloading image: ', error)
-    return []
-  }
-}
-
-const getDocuments = async (id: string | null) => {
-  const supabase = await createClient();
-
-  if(!id) return []
-
-  try {
-    const { data, error } = await supabase
-      .from('bibliographies')
-      .select('id, course_id, name, filename, content_type, size')
-      .eq('target_id', id)
-
-    if (error) {
-      throw error
-    }
-
-    return data
-  } catch (error) {
-    console.log('Error downloading image: ', error)
-    return []
-  }
-}
 
 export default async function TargetPage({ params }: { params: { targetid: string }}) {
   const supabase = await createClient()
@@ -72,19 +31,20 @@ export default async function TargetPage({ params }: { params: { targetid: strin
     .from('targets')
     .select('id, name, description, content, sort_index, rooms(id), target_group_id')
     .eq('id', targetid)
-    .single()
+    .maybeSingle()
 
   if (error) throw error
 
   if (data) {
-    const levels = await getTargets(data.target_group_id)
+    const levels = await getTargetsByTargetGroupId(data.target_group_id)
+    
     menu = {
       name: "Objetivos",
       path: '/target',
       steps: levels
     }
 
-    documents = await getDocuments(targetid)
+    documents = await getDocumentsByTargetId(targetid)
   }
   
   return (
@@ -100,23 +60,7 @@ export default async function TargetPage({ params }: { params: { targetid: strin
             </p>
           </div>
           <div className="mt-4 flex sm:mt-0 sm:ml-4">
-
-            <Link
-              type="button"
-              href={`/room/${targetid}`}
-              className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:order-1 sm:ml-3"
-            >
-              Ir a Sala
-            </Link>
-
-            <Link
-              type="button"
-              href={`/record/${targetid}`}
-              className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:order-1 sm:ml-3"
-            >
-              Ver Grabación
-            </Link>
-
+            <RoomButton target={ targetid } />
             <BackButton />
           </div>
         </div>
@@ -145,7 +89,6 @@ export default async function TargetPage({ params }: { params: { targetid: strin
                             <div className="ml-4 flex-shrink-0">
                               <Link 
                                 href={`${siteConfig.storage.media}/${doc.course_id}/${targetid}/${doc.id}.pdf`} 
-                                locale={false}
                                 rel="noopener noreferrer"
                                 target="_blank"
                                 aria-label="Downlod"

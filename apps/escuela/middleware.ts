@@ -31,14 +31,14 @@ export async function middleware(request: NextRequest) {
     .trim()
 
   // Important: Store nonce in headers to access it throughout the request lifecycle
-  const requestHeaders = new Headers(request.headers);
-  requestHeaders.set('x-nonce', nonce);
+  // const requestHeaders = new Headers(request.headers);
+  // requestHeaders.set('x-nonce', nonce);
 
   // Set the CSP header in the response
-  requestHeaders.set(
-    'Content-Security-Policy',
-    contentSecurityPolicyHeaderValue
-  )
+  // requestHeaders.set(
+  //   'Content-Security-Policy',
+  //   contentSecurityPolicyHeaderValue
+  // )
 
   // update user's auth session
   return await updateSession(request)

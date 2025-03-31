@@ -6,6 +6,7 @@
   ],
   "exports": {
     "./lib/*": "./src/lib/*.ts",
+    "./models/*": "./src/models/*.ts",
     "./providers/*": "./src/providers/*.tsx",
     "./store/*": "./src/store/*.ts"
   },
