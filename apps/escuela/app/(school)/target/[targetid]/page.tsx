@@ -24,7 +24,7 @@ export default async function TargetPage({ params }: { params: { targetid: strin
 
   const { data, error } = await supabase
     .from('targets')
-    .select('id, name, description, content, sort_index, rooms(id), target_group_id')
+    .select('id, name, content, sort_index, rooms(id), target_group_id')
     .eq('id', targetid)
     .maybeSingle()
 

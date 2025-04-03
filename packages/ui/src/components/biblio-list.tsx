@@ -2,7 +2,7 @@ import Link from "next/link";
 import { CassetteTape, ExternalLink, Paperclip } from "lucide-react";
 import { SiYoutube } from '@icons-pack/react-simple-icons';
 
-import { getDocumentsByTargetId } from '@repo/supabase/models/bibliographies'
+import { getDocumentsByTargetId } from '@repo/supabase/models/library'
 import { storage } from '@repo/supabase/lib/storage'
 
 

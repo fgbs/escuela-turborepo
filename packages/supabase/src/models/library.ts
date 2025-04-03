@@ -8,7 +8,7 @@ export const getDocumentsByTargetId = async (target_id: string | null) => {
 
   try {
     const { data, error } = await supabase
-      .from('bibliographies')
+      .from('library')
       .select('id, course_id, name, filename, content_type, size, type, ext, author')
       .eq('target_id', target_id)
 
