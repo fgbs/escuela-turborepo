@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { Paperclip } from "lucide-react";
+import { ExternalLink, Paperclip } from "lucide-react";
+import { SiYoutube } from '@icons-pack/react-simple-icons';
 
 import { createClient } from "@repo/supabase/lib/server";
 import { getTargetsByTargetGroupId } from '@repo/supabase/models/targets'
@@ -46,6 +47,22 @@ export default async function TargetPage({ params }: { params: { targetid: strin
 
     documents = await getDocumentsByTargetId(targetid)
   }
+
+  const getLink = (doc) => {
+    if (doc.type === 'document') {
+      return `${siteConfig.storage.media}/${doc.course_id}/${targetid}/${doc.id}.${doc.ext}`
+    }
+
+    if (doc.type === 'youtube') {
+      return `https://www.youtube.com/watch?v=${doc.filename}`
+    }
+
+    if (doc.type === 'link') {
+      return `${doc.filename}`
+    }
+
+    return '#'
+  }
   
   return (
     <>
@@ -65,47 +82,62 @@ export default async function TargetPage({ params }: { params: { targetid: strin
           </div>
         </div>
 
-        <div className="container mx-auto px-4 pt-4 pb-4 sm:px-6 sm:pt-6 sm:pb-6 lg:px-8 lg:pt-8 lg:pb-8">
-          <div className="bg-white shadow overflow-hidden sm:rounded-lg">
-            <div className="px-4 py-5 sm:px-6">
+        <div className="container mx-auto px-2 pt-2 pb-2 lg:px-4 lg:pt-4 lg:pb-4">
+
+          <div className="grid gap-4 grid-cols-1 lg:grid-cols-3">
+
+            <div className="px-4 py-4 col-span-2 bg-white shadow overflow-hidden sm:rounded-lg">
               <ContentRender content={ data.content } />
             </div>
 
-            <div className="border-t border-gray-200 px-4 py-5 sm:px-6">
-              <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
-                <div className="sm:col-span-2">
-                  <dt className="text-sm font-medium text-gray-500">
-                    Bibliografía
-                  </dt>
-                  <dd className="mt-1 text-sm text-gray-900">
-                    <ul role="list" className="border border-gray-200 rounded-md divide-y divide-gray-200">
-                      {
-                        documents.map((doc) => (
-                          <li key={doc.id} className="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
-                            <div className="w-0 flex-1 flex items-center">
-                              <Paperclip className="flex-shrink-0 h-5 w-5 text-gray-400" aria-hidden="true" />
-                              <span className="ml-2 flex-1 w-0 truncate">{ doc.filename }</span>
+            <div className="px-4 py-4 bg-white shadow overflow-hidden sm:rounded-lg">
+              <div className="text-sm font-medium text-gray-800">
+                Bibliografía
+              </div>
+
+              <ul role="list" className="mt-4 divide-y divide-gray-200">
+                {
+                  documents.map((doc) => (
+                    <li key={doc.id}>
+                      <Link 
+                        href={getLink(doc)} 
+                        rel="noopener noreferrer"
+                        target="_blank"
+                        aria-label="Downlod"
+                        className="block hover:bg-gray-50"
+                      >
+                        <div className="px-2 py-2 sm:px-4">
+                          <div className="flex items-center justify-between">
+                            <p className="text-sm font-medium text-indigo-600 truncate">
+                              {doc.name}
+                            </p>
+                          </div>
+                          <div className="mt-2 sm:flex sm:justify-between">
+                            <div className="sm:flex">
+                              <p className="flex items-center text-sm text-gray-500">
+                                {doc.author}
+                              </p>
                             </div>
-                            <div className="ml-4 flex-shrink-0">
-                              <Link 
-                                href={`${siteConfig.storage.media}/${doc.course_id}/${targetid}/${doc.id}.pdf`} 
-                                rel="noopener noreferrer"
-                                target="_blank"
-                                aria-label="Downlod"
-                                className="font-medium text-indigo-600 hover:text-indigo-500"
-                              >
-                                Descargar
-                              </Link>
+                            <div className="mt-2 flex items-center text-sm text-gray-500 sm:mt-0">
+                              {
+                                doc.type === 'document' 
+                                ? <Paperclip className="flex-shrink-0 h-5 w-5 text-gray-400" aria-hidden="true" />
+                                : doc.type === 'youtube' 
+                                ? <SiYoutube className="flex-shrink-0 h-5 w-5 text-gray-400" aria-hidden="true" />
+                                : <ExternalLink className="flex-shrink-0 h-5 w-5 text-gray-400" aria-hidden="true" />
+                              }
                             </div>
-                          </li>  
-                        ))
-                      }
-                    </ul>
-                  </dd>
-                </div>
-              </dl>
+                          </div>
+                        </div>
+                      </Link>
+                    </li>  
+                  ))
+                }
+              </ul>
+
             </div>
           </div>
+
         </div>
       </Sidebar>
     </>

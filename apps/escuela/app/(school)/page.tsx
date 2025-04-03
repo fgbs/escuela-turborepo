@@ -18,7 +18,16 @@ export default async function SchoolPage() {
 
   const { data, error } = await supabase
     .from('courses')
-    .select('id, name, description, thumb')
+    .select(`
+      id, name, description, thumb, 
+      cohorts!inner(
+        id, name, 
+        enrollments!inner(
+          id, profile_id
+        )
+      )
+    `)
+    .eq('cohorts.enrollments.profile_id', user?.id)
   
   if (error) throw error
 
@@ -32,6 +41,7 @@ export default async function SchoolPage() {
             </h1>
           </div>
           <div className="mt-4 flex sm:mt-0 sm:ml-4">
+            {/* 
             <button
               type="button"
               className="order-1 ml-3 inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 sm:order-0 sm:ml-0"
@@ -44,6 +54,7 @@ export default async function SchoolPage() {
             >
               Create
             </button>
+            */}
           </div>
         </div>
 
