@@ -1,9 +1,11 @@
 'use client'
+import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { Loader, Presentation, Video } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 
 import { createClient } from "@repo/supabase/lib/client"
+import { cx } from '@repo/ui/utils/cx'
 
 
 const getRecords = async(id: string) => {
@@ -35,7 +37,7 @@ export const RoomButton = ({ target }: { target: string }) => {
 
       const { data, error } = await supabase
         .from('rooms')
-        .select(`id, active, status`)
+        .select(`id, room_url, active, status`)
         .eq('target_id', id)
         .maybeSingle()
 
@@ -67,31 +69,37 @@ export const RoomButton = ({ target }: { target: string }) => {
 
   return(
     <>
-      <button
-        type="button"
-        className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-25 sm:order-1 sm:ml-3"
-        disabled={roomDisabled}
+      <Link
+        href={room?.room_url || '#'}
+        rel="noopener noreferrer"
+        target="_blank"
+        className={cx(
+          roomDisabled ? 'pointer-events-none text-white bg-green-400 disabled:opacity-25' : 'text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500',
+          "inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md sm:order-1 sm:ml-3"
+        )}
         aria-disabled={roomDisabled}
-        onClick={() => router.push(`/room/${room?.id}`)}
+        tabIndex={roomDisabled ? -1 : undefined}
       >
         {
           loading ? <Loader className="-ml-0.5 mr-2 h-4 w-4 animate-spin" aria-hidden="true"/> : <Presentation className="-ml-0.5 mr-2 h-4 w-4" aria-hidden="true"/>
         }
         Ir a Sala
-      </button>
+      </Link>  
 
-      <button
-        type="button"
-        className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 disabled:opacity-25 sm:order-1 sm:ml-3"
-        disabled={recordDisabled}
+      <Link
+        href={`/record/${record?.id}`}
+        className={cx(
+          recordDisabled ? 'pointer-events-none text-white bg-purple-400 disabled:opacity-25' : 'text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500',
+          "inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md sm:order-1 sm:ml-3"
+        )}
         aria-disabled={recordDisabled}
-        onClick={() => router.push(`/record/${record?.id}`)}
+        tabIndex={recordDisabled ? -1 : undefined}
       >
         {
           loading ? <Loader className="-ml-0.5 mr-2 h-4 w-4 animate-spin" aria-hidden="true"/> : <Video className="-ml-0.5 mr-2 h-4 w-4" aria-hidden="true"/>
         }
         Ver Grabación
-      </button>
+      </Link>  
     </>
   )
 }
