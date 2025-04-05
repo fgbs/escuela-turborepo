@@ -1,5 +1,6 @@
 'use client'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 import { Dialog } from '@headlessui/react'
 import { MenuIcon, X } from "lucide-react"
@@ -23,7 +24,10 @@ export const Sidebar = ({
   children: React.ReactNode;
 }>) => {
   const [sidebarOpen, setSidebarOpen] = useState(false)
-  
+  const pathname = usePathname()
+
+  console.log(pathname)
+
   return(
     <>
       <Dialog as="div" className="fixed inset-0 flex z-40 lg:hidden" open={sidebarOpen} onClose={setSidebarOpen}>
@@ -55,7 +59,7 @@ export const Sidebar = ({
                     key={item.name}
                     href={item.href}
                     className={cx(
-                      item.current
+                      item.href === pathname
                         ? 'bg-gray-900 text-white'
                         : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50',
                       'group flex items-center px-2 py-2 text-base leading-5 font-medium rounded-md'
@@ -64,7 +68,7 @@ export const Sidebar = ({
                   >
                     <item.icon
                       className={cx(
-                        item.current ? 'text-white' : 'text-gray-600 group-hover:text-gray-900',
+                        item.href === pathname ? 'text-white' : 'text-gray-600 group-hover:text-gray-900',
                         'mr-3 flex-shrink-0 h-6 w-6'
                       )}
                       aria-hidden="true"
@@ -82,17 +86,20 @@ export const Sidebar = ({
 
               <div className="mt-auto pt-10 space-y-1">
                 {siteConfig.userNavigation.map((item) => (
-                  <a
+                  <Link
                     key={item.name}
                     href={item.href}
-                    className="group border-l-4 border-transparent py-2 px-3 flex items-center text-base font-medium text-gray-300 hover:text-gray-700"
+                    className={cx(
+                      item.href === pathname ? 'bg-gray-900 text-white' : 'text-gray-300 hover:text-gray-700 hover:text-white',
+                      'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
+                    )}
                   >
                     <item.icon
                       className="mr-4 h-6 w-6 text-gray-400 group-hover:text-gray-500"
                       aria-hidden="true"
                     />
                     {item.name}
-                  </a>
+                  </Link>
                 ))}
               </div>
 
@@ -129,14 +136,14 @@ export const Sidebar = ({
                   key={item.name}
                   href={item.href}
                   className={cx(
-                    item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:text-gray-700 hover:text-white',
+                    item.href === pathname ? 'bg-gray-900 text-white' : 'text-gray-300 hover:text-gray-700 hover:text-white',
                     'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
                   )}
                   aria-current={item.current ? 'page' : undefined}
                 >
                   <item.icon
                     className={cx(
-                      item.current ? 'text-white' : 'text-gray-400 group-hover:text-gray-300',
+                      item.href === pathname ? 'text-white' : 'text-gray-400 group-hover:text-gray-300',
                       'mr-3 flex-shrink-0 h-6 w-6'
                     )}
                     aria-hidden="true"
@@ -155,14 +162,17 @@ export const Sidebar = ({
 
           <div className="flex-shrink-0 block px-3 mt-6">
             {siteConfig.userNavigation.map((item) => (
-              <a
+              <Link
                 key={item.name}
                 href={item.href}
-                className="group border-l-4 border-transparent py-2 px-3 flex items-center text-sm font-medium text-gray-300 hover:text-gray-700 hover:text-white"
+                className={cx(
+                  item.href === pathname ? 'bg-gray-900 text-white' : 'text-gray-300 hover:text-gray-700 hover:text-white',
+                  'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
+                )}
               >
                 <item.icon className="text-gray-400 group-hover:text-gray-300 mr-3 h-6 w-6" aria-hidden="true" />
                 {item.name}
-              </a>
+              </Link>
             ))}
           </div>
 

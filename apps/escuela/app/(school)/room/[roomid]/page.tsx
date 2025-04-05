@@ -5,9 +5,9 @@ import { BackButton } from "@repo/ui/components/back-button";
 import { Sidebar } from "../../../../components/ui/sidebar";
 
 
-export default async function TargetRoomPage({ params }: { params: { targetid: string }}) {
+export default async function TargetRoomPage({ params }: { params: { roomid: string }}) {
   const supabase = await createClient()
-  const targetid = (await params).targetid
+  const roomid = (await params).roomid
 
   const {
     data: { user },
@@ -19,18 +19,16 @@ export default async function TargetRoomPage({ params }: { params: { targetid: s
 
   const { data, error } = await supabase
     .from('rooms')
-    .select('id, room_name, active, status')
-    .eq('target_id', targetid)
+    .select('room_name, active, status')
+    .eq('id', roomid)
     .single()
 
-  if (error) {
-    throw error
-  }
+  if (error) throw error
 
   return(
     <>
       <Sidebar menu={null}>
-        <div className="border-b border-gray-200 px-4 py-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8">
+        <div className="bg-white border-b border-gray-200 px-4 py-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8">
           <div className="flex-1 min-w-0">
             <h1 className="text-lg font-medium leading-6 text-gray-900 sm:truncate">
               { data && data.room_name }

@@ -1,9 +1,8 @@
 import Link from "next/link";
-import { CassetteTape, ExternalLink, Paperclip } from "lucide-react";
-import { SiYoutube } from '@icons-pack/react-simple-icons';
 
 import { getDocumentsByTargetId } from '@repo/supabase/models/library'
 import { storage } from '@repo/supabase/lib/storage'
+import { DocumentTypeIcon } from "./document-type";
 
 
 export const BiblioList = async ({ target }: { target: string }) => {
@@ -50,15 +49,7 @@ export const BiblioList = async ({ target }: { target: string }) => {
                   </p>
                 </div>
                 <div className="mt-2 flex items-center text-sm text-gray-500 sm:mt-0">
-                  {
-                    doc.type === 'document' 
-                    ? <Paperclip className="flex-shrink-0 h-5 w-5 text-gray-400" aria-hidden="true" />
-                    : doc.type === 'youtube' 
-                    ? <SiYoutube className="flex-shrink-0 h-5 w-5 text-gray-400" aria-hidden="true" />
-                    : doc.type === 'audio' 
-                    ? <CassetteTape className="flex-shrink-0 h-5 w-5 text-gray-400" aria-hidden="true" />
-                    : <ExternalLink className="flex-shrink-0 h-5 w-5 text-gray-400" aria-hidden="true" />
-                  }
+                  <DocumentTypeIcon type={doc.type} className="flex-shrink-0 h-5 w-5 text-gray-400" aria-hidden="true" />
                 </div>
               </div>
             </div>
