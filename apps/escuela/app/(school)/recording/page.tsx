@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 
 import { createClient } from "@repo/supabase/lib/server";
 import { BackButton } from '@repo/ui/components/back-button'
+import { EmptyState } from '@repo/ui/components/empty-state'
 import { Sidebar } from '../../../components/ui/sidebar'
 
 
@@ -62,6 +63,9 @@ export default async function RecordingPage() {
           </div>
         </div>
 
+        <EmptyState title={'Grabación'} subtitle={'No hay grabaciones disponibles.'} />
+
+        {/* 
         <div className="px-4 py-4 sm:px-6 bg-gray-100">
           <h2 className="text-gray-500 text-xs font-medium uppercase tracking-wide">Projects</h2>
         </div>
@@ -84,6 +88,7 @@ export default async function RecordingPage() {
           </ul>
 
         </div>
+        */}
       </Sidebar>
     </>
   )

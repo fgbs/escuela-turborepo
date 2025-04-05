@@ -280,6 +280,66 @@ export type Database = {
           },
         ]
       }
+      library: {
+        Row: {
+          author: string | null
+          content_type: string | null
+          course_id: string | null
+          created_at: string
+          ext: string | null
+          filename: string | null
+          id: string
+          name: string | null
+          size: number | null
+          target_id: string | null
+          type: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          author?: string | null
+          content_type?: string | null
+          course_id?: string | null
+          created_at?: string
+          ext?: string | null
+          filename?: string | null
+          id?: string
+          name?: string | null
+          size?: number | null
+          target_id?: string | null
+          type?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          author?: string | null
+          content_type?: string | null
+          course_id?: string | null
+          created_at?: string
+          ext?: string | null
+          filename?: string | null
+          id?: string
+          name?: string | null
+          size?: number | null
+          target_id?: string | null
+          type?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "bibliographies_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "bibliographies_target_id_fkey"
+            columns: ["target_id"]
+            isOneToOne: false
+            referencedRelation: "targets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -453,7 +513,6 @@ export type Database = {
           archived: boolean | null
           content: string | null
           created_at: string
-          description: string | null
           id: string
           is_workshop: boolean | null
           link_to_complete: string | null
@@ -467,7 +526,6 @@ export type Database = {
           archived?: boolean | null
           content?: string | null
           created_at?: string
-          description?: string | null
           id?: string
           is_workshop?: boolean | null
           link_to_complete?: string | null
@@ -481,7 +539,6 @@ export type Database = {
           archived?: boolean | null
           content?: string | null
           created_at?: string
-          description?: string | null
           id?: string
           is_workshop?: boolean | null
           link_to_complete?: string | null
