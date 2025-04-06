@@ -1,8 +1,8 @@
 FROM node:lts-alpine AS base
 
 LABEL maintainer=felipe.barros@gmail.com
-LABEL org.opencontainers.image.source https://github.com/fgbs/escuela-turborepo
-LABEL org.opencontainers.image.description "Aula"
+LABEL org.opencontainers.image.source=https://github.com/fgbs/escuela-turborepo
+LABEL org.opencontainers.image.description="Aula"
 LABEL org.label-schema.name="aula"
 LABEL org.label-schema.description="Aula"
 LABEL org.label-schema.vcs-url="https://github.com/fgbs/escuela-turborepo.git"
@@ -37,8 +37,8 @@ RUN yarn turbo run build
 FROM base AS runner
 WORKDIR /app
 
-ENV NODE_ENV production
-ENV NEXT_TELEMETRY_DISABLED 1
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
@@ -50,8 +50,4 @@ COPY --from=installer --chown=nextjs:nodejs /app/apps/escuela/public ./apps/escu
 
 EXPOSE 3000
 
-ENV PORT 3000
-# set hostname to localhost
-ENV HOSTNAME "0.0.0.0"
-
-CMD node apps/escuela/server.js
+CMD ["node", "apps/escuela/server.js"]
