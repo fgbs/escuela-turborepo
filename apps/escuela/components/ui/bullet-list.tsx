@@ -1,10 +1,17 @@
 import Link from 'next/link';
 import { CircleCheck } from 'lucide-react'
 
+export interface iLevels {
+  id: string; 
+  name: string | null; 
+}
+
 export interface iSteps {
   id: string;
-  name: string;
-  visibility: string;
+  name: string | null; 
+  visibility: string | null; 
+  sort_index: number | null; 
+  levels?: iLevels | null;
 }
 
 

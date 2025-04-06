@@ -8,7 +8,7 @@ import oembedTransformer from '@remark-embedder/transformer-oembed'
 import rehypeRaw from 'rehype-raw'
 
 
-export const ContentRender = async ({ content }: { content: string }) => {
+export const ContentRender = async ({ content }: { content: string | null }) => {
   const GoogleDocsTransformer = {
     name: 'GoogleDocs',
     shouldTransform(url: string) {
@@ -47,7 +47,7 @@ export const ContentRender = async ({ content }: { content: string }) => {
     return html
   }
 
-  const html = (
+  const html = content && (
     await unified()
       .use(remarkParse)
       .use(remarkEmbedder, {
@@ -62,7 +62,11 @@ export const ContentRender = async ({ content }: { content: string }) => {
 
   return(
     <>
-      <article className='ui-prose min-w-full' dangerouslySetInnerHTML={{__html: html }} />
+      {
+        html && (
+          <article className='ui-prose min-w-full' dangerouslySetInnerHTML={{__html: html }} />
+        )
+      }
     </>
   )
 }

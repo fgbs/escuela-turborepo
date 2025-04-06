@@ -24,7 +24,6 @@ export const RecordButton = ({ target }: { target: string }) => {
       if (error) throw error
 
       setRecord(data)
-      console.log('record', data)
 
       if(data) setDisabled(false)
 

@@ -153,6 +153,7 @@ export const AccountForm = ({ user }: { user: User | null }) => {
                   }}
                 />
               </span>
+              {/*
               <span className="ml-4 flex-shrink-0 flex items-start space-x-4">
                 <button
                   type="button"
@@ -170,6 +171,7 @@ export const AccountForm = ({ user }: { user: User | null }) => {
                   Remove
                 </button>
               </span>
+              */}
             </dd>
           </div>
 

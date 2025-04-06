@@ -26,8 +26,6 @@ export const Sidebar = ({
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const pathname = usePathname()
 
-  console.log(pathname)
-
   return(
     <>
       <Dialog as="div" className="fixed inset-0 flex z-40 lg:hidden" open={sidebarOpen} onClose={setSidebarOpen}>
