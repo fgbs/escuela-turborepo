@@ -31,7 +31,7 @@ export async function middleware(request: NextRequest) {
     .trim()
 
   // Important: Store nonce in headers to access it throughout the request lifecycle
-  // const requestHeaders = new Headers(request.headers);
+  const requestHeaders = new Headers(request.headers);
   // requestHeaders.set('x-nonce', nonce);
 
   // Set the CSP header in the response
@@ -39,6 +39,12 @@ export async function middleware(request: NextRequest) {
   //   'Content-Security-Policy',
   //   contentSecurityPolicyHeaderValue
   // )
+
+  // add the CORS headers to the response
+  requestHeaders.set('Access-Control-Allow-Credentials', 'true')
+  requestHeaders.set('Access-Control-Allow-Origin', '*')
+  requestHeaders.set('Access-Control-Allow-Methods', 'GET,DELETE,PATCH,POST,PUT')
+  requestHeaders.set('Access-Control-Allow-Headers', 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version')
 
   // update user's auth session
   return await updateSession(request)
