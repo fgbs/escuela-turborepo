@@ -49,7 +49,7 @@ export default async function TargetPage({ params }: { params: { targetid: strin
               { data && data.name }
             </h1>
             <p className="text-sm font-medium text-gray-500">
-              { `Día ${data.sort_index}` }
+              { data && `Día ${data.sort_index}` }
             </p>
           </div>
           <div className="mt-4 flex sm:mt-0 sm:ml-4">
@@ -63,7 +63,7 @@ export default async function TargetPage({ params }: { params: { targetid: strin
           <div className="grid gap-4 grid-cols-1 lg:grid-cols-3">
 
             <div className="px-4 py-4 col-span-2 bg-white shadow overflow-hidden sm:rounded-lg">
-              <ContentRender content={ data.content } />
+              <ContentRender content={ data && data.content } />
             </div>
 
             <div className="px-4 py-4 col-span-1 bg-white shadow overflow-hidden sm:rounded-lg">

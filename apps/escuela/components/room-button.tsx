@@ -53,7 +53,6 @@ export const RoomButton = ({ target }: { target: string }) => {
         setRoomDisabled(true)
 
         const rec = await getRecords(data?.id)
-        console.log('room', data, 'rec', rec)
         if (rec) {
           setRecordDisabled(false)
           setRecord(rec)
