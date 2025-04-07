@@ -36,7 +36,7 @@ export default async function AccountPage(props: { searchParams: Promise<Message
               <div className="mt-1">
                 <input
                   id="fullname"
-                  name="fullmane"
+                  name="fullname"
                   type="text"
                   required
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm"
