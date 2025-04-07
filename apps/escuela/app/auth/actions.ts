@@ -1,6 +1,7 @@
 "use server";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { revalidatePath } from 'next/cache'
 
 import { encodedRedirect } from "@repo/ui/utils/encode-redirect";
 import { createClient } from "@repo/supabase/lib/server";
@@ -109,6 +110,7 @@ export const signInAction = async (formData: FormData) => {
     return encodedRedirect("error", "/auth/login", error.message);
   }
 
+  revalidatePath('/', 'layout')
   return redirect("/");
 };
 
@@ -129,6 +131,7 @@ export const setPassword = async (formData: FormData) => {
     return redirect('/error')
   }
 
+  revalidatePath('/', 'layout')
   return redirect('/')
 }
 
