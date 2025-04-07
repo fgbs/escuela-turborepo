@@ -1,4 +1,4 @@
-import Link from "next/link"
+ from "next/link"
 
 export const CTASection = () => {
   return (
@@ -11,18 +11,18 @@ export const CTASection = () => {
           </span>
         </h2>
         <div className="mt-6 space-y-4 sm:space-y-0 sm:flex sm:space-x-5">
-          <Link
+          <a
             href={'/auth/register'}
             className="flex items-center justify-center bg-gradient-to-r from-purple-600 to-indigo-600 bg-origin-border px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white hover:from-purple-700 hover:to-indigo-700"
           >
             Registrate
-          </Link>
-          <Link
+          </a>
+          <a
             href={'/contact'}
             className="flex items-center justify-center px-4 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-indigo-800 bg-indigo-50 hover:bg-indigo-100"
           >
             Contacto
-          </Link>
+          </a>
         </div>
       </div>
     </div>

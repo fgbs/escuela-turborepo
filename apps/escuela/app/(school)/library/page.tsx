@@ -1,4 +1,4 @@
-import Link from "next/link";
+
 import { redirect } from "next/navigation";
 
 import { createClient } from "@repo/supabase/lib/server";
@@ -64,7 +64,7 @@ export default async function LibraryPage() {
               {
                 data.map((lib) => {
                   return(
-                    <Link 
+                    <a 
                       key={lib.id}
                       href={getLink(lib)} 
                       rel="noopener noreferrer"
@@ -83,7 +83,7 @@ export default async function LibraryPage() {
                           {lib.type}
                         </p>
                       </li>
-                    </Link>
+                    </a>
                   )
                 })
               }

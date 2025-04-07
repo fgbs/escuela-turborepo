@@ -1,4 +1,4 @@
-import Link from "next/link"
+
 
 import { FormMessage, Message } from "../../../components/form-message";
 import { SubmitButton } from "@repo/ui/components/submit-button"
@@ -39,9 +39,9 @@ export default async function ForgotPassword(props: { searchParams: Promise<Mess
                 </div>
 
                 <div className="mt-3 text-sm">
-                  <Link href={'/auth/login'} className="font-medium text-purple-600 hover:text-purple-500">
+                  <a href={'/auth/login'} className="font-medium text-purple-600 hover:text-purple-500">
                     ¡Me acordé!
-                  </Link>
+                  </a>
                 </div>
               </div>
 

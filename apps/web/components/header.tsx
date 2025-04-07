@@ -1,5 +1,5 @@
 'use client'
-import Link from 'next/link'
+
 import { Fragment } from 'react'
 import { Popover, PopoverButton, PopoverGroup, PopoverPanel, Transition } from '@headlessui/react'
 import { ChevronDown, Menu as MenuIcon, Sparkles, X } from 'lucide-react'
@@ -34,14 +34,14 @@ export const PublicHeader = () => {
       <Popover className="relative bg-white">
         <div className="flex justify-between items-center max-w-7xl mx-auto px-4 py-6 sm:px-6 md:justify-start md:space-x-10 lg:px-8">
           <div className="flex justify-start lg:w-0 lg:flex-1">
-            <Link href={'/'}>
+            <a href={'/'}>
               <span className="sr-only">Escuela TVP</span>
               <img
                 className="h-8 w-auto sm:h-10"
                 src="https://dabrdpdopssigtsyzrbx.supabase.co/storage/v1/object/public/media/tvp-logo.svg"
                 alt="Escuela TVP"
               />
-            </Link>
+            </a>
           </div>
           <div className="-mr-2 -my-2 md:hidden">
             <PopoverButton className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
@@ -104,20 +104,20 @@ export const PublicHeader = () => {
               )}
             </Popover>
 
-            <Link href={'/coaches'} className="text-base font-medium text-gray-500 hover:text-gray-900">
+            <a href={'/coaches'} className="text-base font-medium text-gray-500 hover:text-gray-900">
               Coaches
-            </Link>
-            <Link href={'/news'} className="text-base font-medium text-gray-500 hover:text-gray-900">
+            </a>
+            <a href={'/news'} className="text-base font-medium text-gray-500 hover:text-gray-900">
               Noticias
-            </Link>
+            </a>
           </PopoverGroup>
           <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-            <Link href={'/auth/login'} className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900">
+            <a href={'/auth/login'} className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900">
               Entrar
-            </Link>
-            <Link href={'/auth/register'} className="ml-8 whitespace-nowrap inline-flex items-center justify-center bg-gradient-to-r from-purple-600 to-indigo-600 bg-origin-border px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white hover:from-purple-700 hover:to-indigo-700">
+            </a>
+            <a href={'/auth/register'} className="ml-8 whitespace-nowrap inline-flex items-center justify-center bg-gradient-to-r from-purple-600 to-indigo-600 bg-origin-border px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white hover:from-purple-700 hover:to-indigo-700">
               Registrate
-            </Link>
+            </a>
           </div>
         </div>
 
@@ -170,21 +170,21 @@ export const PublicHeader = () => {
               </div>
               <div className="py-6 px-5">
                 <div className="grid grid-cols-2 gap-4">
-                  <Link href={'/coaches'} className="text-base font-medium text-gray-900 hover:text-gray-700">
+                  <a href={'/coaches'} className="text-base font-medium text-gray-900 hover:text-gray-700">
                     Coaches
-                  </Link>
-                  <Link href={'/news'} className="text-base font-medium text-gray-900 hover:text-gray-700">
+                  </a>
+                  <a href={'/news'} className="text-base font-medium text-gray-900 hover:text-gray-700">
                     Noticias
-                  </Link>
+                  </a>
                 </div>
                 <div className="mt-6">
-                  <Link href={'/auth/register'} className="w-full flex items-center justify-center bg-gradient-to-r from-purple-600 to-indigo-600 bg-origin-border px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white hover:from-purple-700 hover:to-indigo-700">
+                  <a href={'/auth/register'} className="w-full flex items-center justify-center bg-gradient-to-r from-purple-600 to-indigo-600 bg-origin-border px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white hover:from-purple-700 hover:to-indigo-700">
                     Registrate
-                  </Link>
+                  </a>
                   <p className="mt-6 text-center text-base font-medium text-gray-500">
-                    <Link href={'/auth/login'} className="text-gray-900">
+                    <a href={'/auth/login'} className="text-gray-900">
                       Entrar
-                    </Link>
+                    </a>
                   </p>
                 </div>
               </div>

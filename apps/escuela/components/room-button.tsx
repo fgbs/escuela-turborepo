@@ -1,5 +1,5 @@
 'use client'
-import Link from 'next/link'
+
 import { useState, useEffect } from 'react'
 import { Loader, Presentation, Video } from 'lucide-react'
 import { useRouter } from 'next/navigation'
@@ -68,7 +68,7 @@ export const RoomButton = ({ target }: { target: string }) => {
 
   return(
     <>
-      <Link
+      <a
         href={room?.room_url || '#'}
         rel="noopener noreferrer"
         target="_blank"
@@ -83,9 +83,9 @@ export const RoomButton = ({ target }: { target: string }) => {
           loading ? <Loader className="-ml-0.5 mr-2 h-4 w-4 animate-spin" aria-hidden="true"/> : <Presentation className="-ml-0.5 mr-2 h-4 w-4" aria-hidden="true"/>
         }
         Ir a Sala
-      </Link>  
+      </a>  
 
-      <Link
+      <a
         href={`/record/${record?.id}`}
         className={cx(
           recordDisabled ? 'pointer-events-none text-white bg-purple-400 disabled:opacity-25' : 'text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500',
@@ -98,7 +98,7 @@ export const RoomButton = ({ target }: { target: string }) => {
           loading ? <Loader className="-ml-0.5 mr-2 h-4 w-4 animate-spin" aria-hidden="true"/> : <Video className="-ml-0.5 mr-2 h-4 w-4" aria-hidden="true"/>
         }
         Ver Grabación
-      </Link>  
+      </a>  
     </>
   )
 }
