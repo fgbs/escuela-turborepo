@@ -13,7 +13,7 @@ export async function GET(request: NextRequest) {
     next = '/auth/set-account'
 
   // Create redirect link without the secret token
-  const redirectTo = `${origin}${next}`
+  const redirectTo = `https://aula.escuelatvp.cl${next}`
 
   if (token_hash && type) {
     const supabase = await createClient()
@@ -28,5 +28,5 @@ export async function GET(request: NextRequest) {
   }
 
   // return the user to an error page with some instructions
-  return NextResponse.redirect(`${origin}/error`)
+  return NextResponse.redirect(`https://aula.escuelatvp.cl/error`)
 }
