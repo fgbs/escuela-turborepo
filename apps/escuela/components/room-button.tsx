@@ -1,10 +1,6 @@
-'use client'
-
-import { useState, useEffect } from 'react'
 import { Loader, Presentation, Video } from 'lucide-react'
-import { useRouter } from 'next/navigation'
 
-import { createClient } from "@repo/supabase/lib/client"
+import { createClient } from "@repo/supabase/lib/server"
 import { cx } from '@repo/ui/utils/cx'
 
 
@@ -20,56 +16,44 @@ const getRecords = async(id: string) => {
 
     if (error) throw error
 
-    return data?.id
+    return data
 }
 
-export const RoomButton = ({ target }: { target: string }) => {
-  const [loading, setLoading] = useState(true)
-  const [roomDisabled, setRoomDisabled] = useState(true)
-  const [recordDisabled, setRecordDisabled] = useState(true)
-  const [room, setRoom] = useState(null)
-  const [record, setRecord] = useState(null)
-  const router = useRouter()
+export const RoomButton = async ({ target }: { target: string }) => {
+  const supabase = await createClient()
+  let room = {}
+  let roomDisabled = true
+  let recordDisabled = true
+  let record = null
 
-  useEffect(() => {
-    const getRoom = async (id: string) => {
-      const supabase = await createClient()
+  const { data, error } = await supabase
+    .from('rooms')
+    .select(`id, room_url, active, status`)
+    .eq('target_id', target)
+    .maybeSingle()
 
-      const { data, error } = await supabase
-        .from('rooms')
-        .select(`id, room_url, active, status`)
-        .eq('target_id', id)
-        .maybeSingle()
+  if (error) throw error
 
-      if (error) throw error
+  if (data?.active && data?.status === 'open') {
+    roomDisabled = false
+    room = data
+  }
 
-      setRoom(data)
+  if (data?.active && data?.status === 'ended') {
+    roomDisabled = true
 
-      if (data?.active && data?.status === 'open') {
-        setRoomDisabled(false)
-      }
-
-      if (data?.active && data?.status === 'ended') {
-        setRoomDisabled(true)
-
-        const rec = await getRecords(data?.id)
-        if (rec) {
-          setRecordDisabled(false)
-          setRecord(rec)
-        }
-
-      }
-
-      setLoading(false)
+    const rec = await getRecords(data?.id)
+    if (rec) {
+      recordDisabled = false
+      record = rec
     }
 
-    getRoom(target)
-  }, [target])
+  }
 
   return(
     <>
       <a
-        href={room?.room_url || '#'}
+        href={room?.room_url}
         rel="noopener noreferrer"
         target="_blank"
         className={cx(
@@ -79,9 +63,7 @@ export const RoomButton = ({ target }: { target: string }) => {
         aria-disabled={roomDisabled}
         tabIndex={roomDisabled ? -1 : undefined}
       >
-        {
-          loading ? <Loader className="-ml-0.5 mr-2 h-4 w-4 animate-spin" aria-hidden="true"/> : <Presentation className="-ml-0.5 mr-2 h-4 w-4" aria-hidden="true"/>
-        }
+        <Presentation className="-ml-0.5 mr-2 h-4 w-4" aria-hidden="true"/>
         Ir a Sala
       </a>  
 
@@ -94,9 +76,7 @@ export const RoomButton = ({ target }: { target: string }) => {
         aria-disabled={recordDisabled}
         tabIndex={recordDisabled ? -1 : undefined}
       >
-        {
-          loading ? <Loader className="-ml-0.5 mr-2 h-4 w-4 animate-spin" aria-hidden="true"/> : <Video className="-ml-0.5 mr-2 h-4 w-4" aria-hidden="true"/>
-        }
+        <Video className="-ml-0.5 mr-2 h-4 w-4" aria-hidden="true"/>
         Ver Grabación
       </a>  
     </>
