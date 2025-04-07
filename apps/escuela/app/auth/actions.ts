@@ -205,6 +205,70 @@ export const resetPasswordAction = async (formData: FormData) => {
   encodedRedirect("success", "/auth/set-password", "Contraseña actualizada.");
 };
 
+export const setAccountAction = async (formData: FormData) => {
+  const supabase = await createClient();
+
+  const user = formData.get("user") as string;
+  const fullname = formData.get("fullname") as string;
+  const password = formData.get("password") as string;
+  const confirmPassword = formData.get("confirmPassword") as string;
+
+  if (!fullname) {
+    encodedRedirect(
+      "error",
+      "/auth/set-account",
+      "El nombre es obligatoro.",
+    );
+  }
+
+  if (!password || !confirmPassword) {
+    encodedRedirect(
+      "error",
+      "/auth/set-account",
+      "Las contraseñas son obligatorias.",
+    );
+  }
+
+  if (password !== confirmPassword) {
+    encodedRedirect(
+      "error",
+      "/auth/set-account",
+      "Las contraseñas son distintas.",
+    );
+  }
+
+  const { error: profileError } = await supabase
+    .from('profiles')
+    .upsert({
+      id: user,
+      full_name: fullname,        
+      updated_at: new Date().toISOString(),
+    })
+  
+  if (profileError) {
+    encodedRedirect(
+      "error",
+      "/auth/set-account",
+      "Ocurrió un error inesperado, favor intentar nuevamente.",
+    );
+  }
+
+  const { error } = await supabase.auth.updateUser({
+    password: password,
+  });
+
+  if (error) {
+    encodedRedirect(
+      "error",
+      "/auth/set-account",
+      "Falló la creaciòn de la cuenta.",
+    );
+  }
+
+  revalidatePath('/', 'layout')
+  return redirect('/')
+};
+
 export const signOutAction = async () => {
   const supabase = await createClient();
   await supabase.auth.signOut();

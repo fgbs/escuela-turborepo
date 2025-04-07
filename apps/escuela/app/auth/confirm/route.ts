@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
   let next = searchParams.get("next") ?? "/"
 
   if (type === 'invite')
-    next = '/auth/set-password'
+    next = '/auth/set-account'
 
   // Create redirect link without the secret token
   const redirectTo = request.nextUrl.clone()
