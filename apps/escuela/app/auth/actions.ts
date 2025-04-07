@@ -272,5 +272,7 @@ export const setAccountAction = async (formData: FormData) => {
 export const signOutAction = async () => {
   const supabase = await createClient();
   await supabase.auth.signOut();
-  return redirect("/auth/login");
+
+  revalidatePath('/', 'layout')
+  return redirect('/')
 };
