@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Mail } from "lucide-react";
 
 import { FormMessage, Message } from "../../../components/form-message";
@@ -71,9 +70,9 @@ export default async function LoginPage(props: { searchParams: Promise<Message> 
               </div>
 
               <div className="text-sm">
-                <Link href={'/auth/forgot-password'} className="font-medium text-purple-600 hover:text-purple-500">
+                <a href={'/auth/forgot-password'} className="font-medium text-purple-600 hover:text-purple-500">
                   ¿Olvidaste tu contraseña?
-                </Link>
+                </a>
               </div>
             </div>
 
@@ -96,13 +95,13 @@ export default async function LoginPage(props: { searchParams: Promise<Message> 
         </div>
 
         <div className="mt-8">
-          <Link
+          <a
             href={'/auth/magiclink'}
             className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
           >
             <Mail className="-ml-1 mr-3 h-5 w-5" aria-hidden="true" />
             Link Mágico
-          </Link>
+          </a>
         </div>
       </div>
     </>

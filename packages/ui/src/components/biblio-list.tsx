@@ -1,4 +1,4 @@
-import Link from "next/link";
+
 
 import { createClient } from '@repo/supabase/lib/server'
 import { storage } from '@repo/supabase/lib/storage'
@@ -51,7 +51,7 @@ export const BiblioList = async ({ target }: { target: string }) => {
     {
       documents.map((doc) => (
         <li key={doc.id}>
-          <Link 
+          <a 
             href={getLink(doc)} 
             rel="noopener noreferrer"
             target="_blank"
@@ -75,7 +75,7 @@ export const BiblioList = async ({ target }: { target: string }) => {
                 </div>
               </div>
             </div>
-          </Link>
+          </a>
         </li>  
       ))
     }

@@ -1,4 +1,4 @@
-import Link from 'next/link'
+
 
 import { createClient } from '@repo/supabase/lib/server'
 import { BackButton } from '@repo/ui/components/back-button'
@@ -55,7 +55,7 @@ export default async function Account() {
             <div className="border-b border-gray-200">
               <nav className="-mb-px flex space-x-8" aria-label='Tabs'>
                 {tabs.map((tab) => (
-                  <Link
+                  <a
                     key={tab.name}
                     href={tab.href}
                     className={cx(
@@ -66,7 +66,7 @@ export default async function Account() {
                     )}
                   >
                     {tab.name}
-                  </Link>
+                  </a>
                 ))}
               </nav>
             </div>

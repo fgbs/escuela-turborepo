@@ -1,4 +1,4 @@
-import Link from "next/link";
+
 import { redirect } from "next/navigation";
 
 import { createClient } from "@repo/supabase/lib/server";
@@ -76,12 +76,12 @@ export default async function SchoolPage() {
                       </div>
                     </div>
                     <div className="mt-6 flex items-center">
-                      <Link 
+                      <a 
                         href={`/course/${course.id}`} 
                         className="mt-8 block w-full border border-transparent shadow-sm rounded-md py-2 text-sm font-semibold text-white text-center bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
                       >
                         Entrar
-                      </Link>
+                      </a>
                     </div>
                   </div>
                 </div>

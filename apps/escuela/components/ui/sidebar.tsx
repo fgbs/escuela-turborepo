@@ -1,5 +1,5 @@
 'use client'
-import Link from 'next/link'
+
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 import { Dialog } from '@headlessui/react'
@@ -53,7 +53,7 @@ export const Sidebar = ({
             <nav className="h-full flex flex-col">
               <div className="space-y-1">
                 {siteConfig.navigation.map((item) => (
-                  <Link
+                  <a
                     key={item.name}
                     href={item.href}
                     className={cx(
@@ -72,7 +72,7 @@ export const Sidebar = ({
                       aria-hidden="true"
                     />
                     {item.name}
-                  </Link>
+                  </a>
                 ))}
               </div>
 
@@ -84,7 +84,7 @@ export const Sidebar = ({
 
               <div className="mt-auto pt-10 space-y-1">
                 {siteConfig.userNavigation.map((item) => (
-                  <Link
+                  <a
                     key={item.name}
                     href={item.href}
                     className={cx(
@@ -97,7 +97,7 @@ export const Sidebar = ({
                       aria-hidden="true"
                     />
                     {item.name}
-                  </Link>
+                  </a>
                 ))}
               </div>
 
@@ -130,7 +130,7 @@ export const Sidebar = ({
           <nav className="px-3 mt-6 flex-grow">
             <div className="space-y-1">
               {siteConfig.navigation.map((item) => (
-                <Link
+                <a
                   key={item.name}
                   href={item.href}
                   className={cx(
@@ -147,7 +147,7 @@ export const Sidebar = ({
                     aria-hidden="true"
                   />
                   {item.name}
-                </Link>
+                </a>
               ))}
             </div>
 
@@ -160,7 +160,7 @@ export const Sidebar = ({
 
           <div className="flex-shrink-0 block px-3 mt-6">
             {siteConfig.userNavigation.map((item) => (
-              <Link
+              <a
                 key={item.name}
                 href={item.href}
                 className={cx(
@@ -170,7 +170,7 @@ export const Sidebar = ({
               >
                 <item.icon className="text-gray-400 group-hover:text-gray-300 mr-3 h-6 w-6" aria-hidden="true" />
                 {item.name}
-              </Link>
+              </a>
             ))}
           </div>
 

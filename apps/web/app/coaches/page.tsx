@@ -99,7 +99,7 @@ export default async function CoachesPublicPage() {
                             <li>
                               <a href={person.linkedinUrl} className="text-gray-400 hover:text-gray-500">
                                 <span className="sr-only">LinkedIn</span>
-                                <LinkedinIcon />
+                                <aedinIcon />
                               </a>
                             </li>
                           </ul>

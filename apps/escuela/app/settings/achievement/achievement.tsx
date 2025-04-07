@@ -1,6 +1,6 @@
 'use client'
 
-import Link from 'next/link'
+
 import { format } from 'date-fns'
 import { useEffect, useState } from 'react'
 
@@ -86,9 +86,9 @@ export const Achievement = ({ user }: { user: User | null }) => {
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <Link href={`${STORAGE_URL}/${a.cohorts.id}/${user.id}.pdf`} target='_blank' className="text-indigo-600 hover:text-indigo-900">
+                    <a href={`${STORAGE_URL}/${a.cohorts.id}/${user.id}.pdf`} target='_blank' className="text-indigo-600 hover:text-indigo-900">
                       Descargar
-                    </Link>
+                    </a>
                   </td>
                 </tr>
               ))
