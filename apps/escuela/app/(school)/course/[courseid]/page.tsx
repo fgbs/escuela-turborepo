@@ -2,13 +2,34 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { createClient } from "@repo/supabase/lib/server"
-import { getTargetGroupsByCourseId } from '@repo/supabase/models/target_groups'
 import { ContentRender } from "@repo/ui/components/content-render"
 import { BackButton } from "@repo/ui/components/back-button";
 import { Sidebar } from "../../../../components/ui/sidebar";
 import { SessionParams } from "../../../../components/session-params"
 import { siteConfig } from "../../../siteConfig";
 
+
+const getTargetGroupsByCourseId = async (course_id: string) => {
+  const supabase = await createClient();
+
+  try {
+    const { data, error } = await supabase
+      .from('target_groups')
+      .select(`
+        id, name, visibility, sort_index,
+        levels!inner(id, name)
+      `)
+      .eq('levels.course_id', course_id)
+      .order('sort_index', { ascending: true })
+
+    if (error) throw error
+
+    return data
+  } catch (error) {
+    console.log('Error downloading image: ', error)
+    return []
+  }
+}
 
 export default async function CoursePage({ params }: { params: { courseid: string }}) {
   const supabase = await createClient();
