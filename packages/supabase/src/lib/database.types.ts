@@ -411,6 +411,7 @@ export type Database = {
       rooms: {
         Row: {
           active: boolean | null
+          course_id: string | null
           created_at: string
           id: string
           room_end_at: string | null
@@ -425,6 +426,7 @@ export type Database = {
         }
         Insert: {
           active?: boolean | null
+          course_id?: string | null
           created_at?: string
           id?: string
           room_end_at?: string | null
@@ -439,6 +441,7 @@ export type Database = {
         }
         Update: {
           active?: boolean | null
+          course_id?: string | null
           created_at?: string
           id?: string
           room_end_at?: string | null
@@ -452,6 +455,13 @@ export type Database = {
           updated_at?: string | null
         }
         Relationships: [
+          {
+            foreignKeyName: "rooms_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "rooms_target_id_fkey"
             columns: ["target_id"]

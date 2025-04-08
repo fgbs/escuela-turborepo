@@ -28,7 +28,15 @@ const useCourse = () => {
   )
 }
 
-export function RecordingRender({ room, name }: { room: string, name: string }) {
+export interface iRoom {
+  id: string; 
+  room_name: string | null; 
+  status: string | null; 
+  course_id: string | null;
+}
+
+
+export function RecordingRender({ room }: { room: iRoom }) {
   const supabase = createClient()
   const [recording, setRecording] = useState({src: '', type: ''})
   const { course, level } = useCourse()
@@ -50,7 +58,7 @@ export function RecordingRender({ room, name }: { room: string, name: string }) 
         // console.log('url', course, level, room, data.filename)
 
         const tmp = {
-          src: `${siteConfig.storage.record}/${course}/${level}/${room}/${data.filename}`,
+          src: `${siteConfig.storage.record}/${room.course_id}/${room.id}/${data.filename}`,
           type: `${data.content_type}`,
         }
         setRecording(tmp)
@@ -59,7 +67,7 @@ export function RecordingRender({ room, name }: { room: string, name: string }) 
       }
     }
 
-    if (room) getDefaultRecording(room)
+    if (room) getDefaultRecording(room.id)
   }, [course, level, room])
 
   if (course && level && recording.src === '') {
@@ -70,7 +78,7 @@ export function RecordingRender({ room, name }: { room: string, name: string }) 
   return (
     <>
       <MediaPlayer 
-        title={ name } 
+        title={ room.room_name || '' } 
         src={ recording.src }
         crossOrigin
         playsInline

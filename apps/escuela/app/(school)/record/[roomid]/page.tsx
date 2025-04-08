@@ -6,9 +6,9 @@ import { BackButton } from "@repo/ui/components/back-button";
 import { Sidebar } from "../../../../components/ui/sidebar";
 
 
-export default async function TargetRecordPage({ params }: { params: { targetid: string }}) {
+export default async function TargetRecordPage({ params }: { params: { roomid: string }}) {
   const supabase = await createClient()
-  const targetid = (await params).targetid
+  const roomid = (await params).roomid
 
   const {
     data: { user },
@@ -20,13 +20,11 @@ export default async function TargetRecordPage({ params }: { params: { targetid:
 
   const { data, error } = await supabase
     .from('rooms')
-    .select('id, room_name, active, status')
-    .eq('target_id', targetid)
+    .select('id, room_name, status, course_id')
+    .eq('id', roomid)
     .single()
 
-  if (error) {
-    throw error
-  }
+  if (error) throw error
 
   return(
     <>
@@ -46,7 +44,7 @@ export default async function TargetRecordPage({ params }: { params: { targetid:
         </div>
 
         <div className="container mx-auto px-4 pt-4 sm:px-6 sm:pt-6 lg:px-8 lg:pt-8">
-          <RecordingRender room={ data.id } name={ data.room_name } />
+          <RecordingRender room={ data } />
         </div>
       </Sidebar>
     </>
