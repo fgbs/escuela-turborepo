@@ -64,7 +64,7 @@ export default async function TargetRecordPage({ params }: { params: { roomid: s
           </div>
         </div>
 
-        <div className="container mx-auto px-4 pt-4 sm:px-6 sm:pt-6 lg:px-8 lg:pt-8">
+        <div className="container mx-auto px-2 pt-2 pb-2 lg:px-4 lg:pt-4 lg:pb-4">
           {
             media ? (
               <MediaPlayer 
