@@ -61,7 +61,7 @@ export const SessionParams = ({ id }: { id: string }) => {
     }
   }, [id])
 
-  console.log(`course: ${course}, level: ${level}, target: ${target}`)
+  // console.log(`course: ${course}, level: ${level}, target: ${target}`)
 
   return(
     <>

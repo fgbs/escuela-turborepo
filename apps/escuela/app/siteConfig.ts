@@ -16,7 +16,7 @@ export const siteConfig = {
   },
   navigation: [
     { name: 'Inicio', href: '/', icon: Home, current: true },
-    { name: 'Bibliografía', href: '/library', icon: Library, current: false },
+    { name: 'Biblioteca', href: '/library', icon: Library, current: false },
     { name: 'Grabaciones', href: '/recording', icon: Video, current: false },
   ],
   userNavigation: [
