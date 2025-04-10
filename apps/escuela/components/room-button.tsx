@@ -1,4 +1,4 @@
-import { Loader, Presentation, Video } from 'lucide-react'
+import { Presentation, Video } from 'lucide-react'
 
 import { createClient } from "@repo/supabase/lib/server"
 import { cx } from '@repo/ui/utils/cx'
